@@ -19,6 +19,7 @@ public class Main {
 		 * 
 		 * [COLOQUE SUA RESPOSTA AQUI]
 		 * 
+		 * Não, ele mostrou apenas as mensagens registradas neste método.
 		 */
 		
 		/*
@@ -35,8 +36,13 @@ public class Main {
 		 * 
 		 * [COLOQUE SUA RESPOSTA AQUI]
 		 * 
+		 * Sim, pois com a aplicação do Singleton, o objeto logger contido neste método e contido em
+		 * FachadaCadastramentoPessoas se torna o mesmo, guardando todos os cadastros existentes dentro
+		 * de si e sendo visto goblalmente com a mesma instância.
+		 * 
 		 */
-		Logger logger = new Logger();
+		//1
+		Logger logger = Logger.getInstancia();
 		logger.registrarMensagemInformativa("VVV APLICACAO PRINCIPAL INICIADA!!!");			
 		
 		FachadaCadastramentoPessoas pessoaService = new FachadaCadastramentoPessoas();

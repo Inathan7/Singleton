@@ -8,7 +8,7 @@ import logging.Logger;
 
 public class FachadaCadastramentoPessoas {
 	
-	Logger logger  = new Logger();
+	Logger logger  = Logger.getInstancia();
 	
 	Set<Pessoa> pessoasCadastradas = new HashSet<Pessoa>();
 
@@ -28,6 +28,25 @@ public class FachadaCadastramentoPessoas {
 		 * "CADASTRAMENTO DE PESSOA INVALIDO ---> nome: <nome>. Eh menor de idade".
 		 * 
 		*/
+		
+		//1
+		Pessoa pessoa = new Pessoa();
+		pessoa.setNome(nome);
+		pessoa.setDataNascimento(dataNasc);
+		
+		//2
+		LocalDate localDate = LocalDate.now();
+		int idade = localDate.getYear() - dataNasc.getYear();
+		logger.registrarMensagemInformativa("PROCESSANDO CADASTRAMENTO DE PESSOA ---> nome: "+ nome + " idade: "+ idade);
+		
+		//3
+		if (idade >= 18) {
+			this.pessoasCadastradas.add(pessoa);
+			logger.registrarMensagemDebug("CADASTRAMENTO DE PESSOA REALIZADO COM SUCESSO ---> nome: "+ nome);
+		}else {
+			logger.registrarMensagemErro("CADASTRAMENTO DE PESSOA INVALIDO ---> nome: "+ nome + " Eh menor de idade");
+		}
+		
 	}
 	
 	public void remover(String nome) {
@@ -42,6 +61,18 @@ public class FachadaCadastramentoPessoas {
 		 * "DESCADASTRAMENTO DE PESSOA NAO ENCONTRADA ---> nome <nome>." 
 		 * 
 		 */
+		
+		//1
+		for (Pessoa pessoa : pessoasCadastradas) {
+			if(pessoa.getNome().equals(nome)) {
+				this.pessoasCadastradas.remove(pessoa);
+				logger.registrarMensagemInformativa("DESCADASTRAMENTO DE PESSOA REALIZADO COM SUCESSO ---> nome: "+ nome);
+			}else {
+				//2
+				logger.registrarMensagemErro("DESCADASTRAMENTO DE PESSOA NAO ENCONTRADA ---> nome: "+ nome);
+			}
+		}
+		
 	}
 	
 }

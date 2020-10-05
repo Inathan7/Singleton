@@ -17,6 +17,20 @@ public class Logger {
 	private Set<String> mensagens = new LinkedHashSet<String>();
 
 	private boolean interativo = false;
+	
+	//2
+	private static Logger instancia;
+	
+	private Logger() {
+		
+	}
+	
+	public static synchronized Logger getInstancia() {
+		if (instancia == null) {
+			instancia =  new Logger();
+		}
+		return instancia;
+	}
 
 
 	public void registrarMensagemInformativa(String msg) {
